@@ -34,20 +34,34 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody,
             }
         }
 
+        renderDish(dish){
+            return(
+
+                        <Card>
+                            <CardImg top src={dish.image} alt={dish.name} />
+                            <CardBody>
+                            <CardTitle>{dish.name}</CardTitle>
+                            <CardText>{dish.description}</CardText>
+                            </CardBody>
+                            
+                        </Card>
+  
+            );
+        }
+
         render() {
 
             if(this.props.dish != null){
 
                 return(
-                    <Card>
-                        <CardImg top src={this.props.dish.image} alt={this.props.dish.name} />
-                        <CardBody>
-                          <CardTitle>{this.props.dish.name}</CardTitle>
-                          <CardText>{this.props.dish.description}</CardText>
-                        </CardBody>
-                        {this.renderComments(this.props.dish.comments)}
-                    </Card>
-                    
+                    <div className="row">
+                        <div  className="col-12 col-md-5 m-1">
+                            {this.renderDish(this.props.dish)}
+                        </div>
+                        <div  className="col-12 col-md-5 m-1">
+                            {this.renderComments(this.props.dish.comments)}
+                        </div>
+                    </div>
                 );
 
             }
