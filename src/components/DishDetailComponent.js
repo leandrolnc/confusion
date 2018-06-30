@@ -16,7 +16,7 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody,
                     return(
                         <li>
                             <div>{cmt.comment}</div>
-                            <div>--{cmt.author},{cmt.date}</div>
+                            <div>--{cmt.author},{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(cmt.date)))}</div>
                             <hr width="80%"/><br />
                         </li>
                     );
@@ -37,14 +37,14 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody,
         renderDish(dish){
             return(
 
-                        <Card>
-                            <CardImg top src={dish.image} alt={dish.name} />
-                            <CardBody>
-                            <CardTitle>{dish.name}</CardTitle>
-                            <CardText>{dish.description}</CardText>
-                            </CardBody>
-                            
-                        </Card>
+                <Card>
+                    <CardImg top src={dish.image} alt={dish.name} />
+                    <CardBody>
+                    <CardTitle>{dish.name}</CardTitle>
+                    <CardText>{dish.description}</CardText>
+                    </CardBody>
+                    
+                </Card>
   
             );
         }
@@ -54,7 +54,7 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody,
             if(this.props.dish != null){
 
                 return(
-                    <div className="row">
+                    <div className="container">
                         <div  className="col-12 col-md-5 m-1">
                             {this.renderDish(this.props.dish)}
                         </div>
