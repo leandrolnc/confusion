@@ -1,78 +1,69 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody,
     CardTitle } from 'reactstrap';
 
-    class DishDetail extends Component{
-        constructor(props){
-            super(props);
-            
-        }
 
+function RenderDish({dish}){
 
-        renderComments(comments){
-            if(comments != null){
-                
-                const comm = comments.map((cmt)=>{
-                    return(
-                        <li>
-                            <div>{cmt.comment}</div>
-                            <div>--{cmt.author},{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(cmt.date)))}</div>
-                            <hr width="80%"/><br />
-                        </li>
-                    );
-                });
+    return(
 
-                return(
-                    <div className="table">
-                        <h4>Comments</h4>
-                        <ul class="list-unstyled">
-                            {comm}
-                        </ul>
-                    </div>
-                )
+        <Card>
+            <CardImg top src={dish.image} alt={dish.name} />
+            <CardBody>
+            <CardTitle>{dish.name}</CardTitle>
+            <CardText>{dish.description}</CardText>
+            </CardBody>
+        </Card>
+    );
 
-            }
-        }
+}
 
-        renderDish(dish){
+function RenderComments({comments}){
+    if(comments != null){
+        
+        const comm = comments.map((cmt)=>{
             return(
-
-                <Card>
-                    <CardImg top src={dish.image} alt={dish.name} />
-                    <CardBody>
-                    <CardTitle>{dish.name}</CardTitle>
-                    <CardText>{dish.description}</CardText>
-                    </CardBody>
-                    
-                </Card>
-  
+                <li key={cmt.id}>
+                    <div>{cmt.comment}</div>
+                    <div>--{cmt.author},{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(cmt.date)))}</div>
+                    <hr width="80%"/><br />
+                </li>
             );
-        }
+        });
 
-        render() {
-
-            if(this.props.dish != null){
-
-                return(
-                    <div className="container">
-                        <div  className="col-12 col-md-5 m-1">
-                            {this.renderDish(this.props.dish)}
-                        </div>
-                        <div  className="col-12 col-md-5 m-1">
-                            {this.renderComments(this.props.dish.comments)}
-                        </div>
-                    </div>
-                );
-
-            }
-            else{
-                return(
-                    <div></div>
-                )
-            }
-
-        }
+        return(
+            <div className="table">
+                <h4>Comments</h4>
+                <ul className="list-unstyled">
+                    {comm}
+                </ul>
+            </div>
+        )
 
     }
+}
 
-    export default DishDetail;
+const DishDetail = (props)=>{
+
+    if(props.dish != null){
+
+        return(
+            <div className="container">
+                <div  className="col-12 col-md-5 m-1">
+                    <RenderDish dish={props.dish} />
+                </div>
+                <div  className="col-12 col-md-5 m-1">
+                    <RenderComments comments={props.dish.comments} />
+                </div>
+            </div>
+        );
+
+    }
+    else{
+        return(
+            <div></div>
+        )
+    }
+}
+
+export default DishDetail;
