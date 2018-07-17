@@ -36,7 +36,7 @@ class CommentForm extends Component {
 
         return(
             <div>
-                <Button outline onClick={this.toggleModal}><span className="fa fa-pencil-alt"></span> Submit Comment</Button>
+                <Button outline onClick={this.toggleModal}><span className="fa fa-pencil"></span> Submit Comment</Button>
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                     <ModalBody>
