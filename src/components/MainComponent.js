@@ -10,6 +10,7 @@ import Contact from './ContactComponent';
 import About from './AboutComponent';
 import { connect } from 'react-redux';
 import {addComment, fetchDishes} from '../redux/ActionCreators';
+import { actions } from 'react-redux-form';
 
 const mapStateToProps = state => {
   return {
