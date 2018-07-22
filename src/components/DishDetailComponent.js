@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import {Loading} from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 
 class CommentForm extends Component {
@@ -98,13 +99,19 @@ function RenderDish({dish}){
 
     return(
 
-        <Card>
-            <CardImg top src={baseUrl + dish.image} alt={dish.name} />
-            <CardBody>
-            <CardTitle>{dish.name}</CardTitle>
-            <CardText>{dish.description}</CardText>
-            </CardBody>
-        </Card>
+        <FadeTransform
+        in
+        transformProps={{
+            exitTransform: 'scale(0.5) translateY(-50%)'
+        }}>
+            <Card>
+                <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+                <CardBody>
+                    <CardTitle>{dish.name}</CardTitle>
+                    <CardText>{dish.description}</CardText>
+                </CardBody>
+            </Card>
+        </FadeTransform>
     );
 
 }
@@ -113,11 +120,13 @@ function RenderComments({comments, postComment, dishId}){
     if(comments != null){
         const comm = comments.map((cmt)=>{
             return(
-                <li key={cmt.id}>
-                    <div>{cmt.comment}</div>
-                    <div>--{cmt.author},{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(cmt.date)))}</div>
-                    <hr width="80%"/><br />
-                </li>
+                <Fade in key={cmt.id}>
+                    <li >
+                        <div>{cmt.comment}</div>
+                        <div>--{cmt.author},{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(cmt.date)))}</div>
+                        <hr width="80%"/><br />
+                    </li>
+                </Fade>
             );
         });
 
@@ -125,7 +134,9 @@ function RenderComments({comments, postComment, dishId}){
             <div className="table">
                 <h4>Comments</h4>
                 <ul className="list-unstyled">
-                    {comm}
+                    <Stagger in>
+                        {comm}
+                    </Stagger>
                 </ul>
             </div>
         )
